@@ -6,15 +6,18 @@
  */
 public class Solution {
     public static void main(String[] args) {
-        String[] strs = new String[]{"flower","flow","flight"};
+        String[] strs = new String[]{};
         System.out.println(longestCommonPrefix(strs));
     }
 
     public static String longestCommonPrefix(String[] strs) {
-        if (strs.length == 0 || hasEmpty(strs)) {
+        if (strs.length == 0) {
             return "";
         }
         int minIndex = findMin(strs);
+        if (minIndex == -1) {
+            return "";
+        }
 //        System.out.println(minIndex);
         int upperBound = 0;
         char currentChar;
@@ -25,12 +28,12 @@ public class Solution {
                     continue;
                 }
                 if (strs[j].charAt(i) != currentChar) {
-                    return strs[minIndex].substring(0,upperBound);
+                    return strs[minIndex].substring(0, upperBound);
                 }
             }
             upperBound++;
         }
-        return strs[minIndex].substring(0,upperBound);
+        return strs[minIndex].substring(0, upperBound);
     }
 
     private static boolean hasEmpty(String[] strs) {
@@ -46,6 +49,9 @@ public class Solution {
         int minLength = strs[0].length();
         int minIndex = 0;
         for (int i = 0; i < strs.length; i++) {
+            if (strs[i].length() == 0) {
+                return -1;
+            }
             if (minLength > strs[i].length()) {
                 minIndex = i;
                 minLength = strs[i].length();
